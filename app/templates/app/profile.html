@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <h3>Welcome {{request.user}}</h3>
+  <div class="col-sm-2 border-end">
+   <ul class="list-unstyled">
+    <li class="d-grid"><a href="{% url 'profile' %}" class="btn {{active}}">Profile</a></li>
+    <li class="d-grid"><a href="{% url 'address' %}" class="btn">Address</a></li>
+   </ul>
+  </div>
+  <div class="col-sm-8 offset-sm-1">
+    <h3 class="text-center">Profile</h3><hr>
+    <form action="" method="post" novalidate class="shadow p-5">
+      {% csrf_token %}
+      
+      {% if messages %}
+      {% for message in messages %}
+      <p {% if message.tags %} class="text-center text-{{message.tags}} fw-bold mb-2"{% endif %}>
+         <small>{{message}}</small> 
+      </p>
+      {% endfor %}
+       {% endif %}
+
+
+      {% for fm in form  %}
+      {{fm.label_tag}}
+      {{fm}}
+     <small class="text-warning">{{fm.errors|striptags}}</small> 
+     <!-- to change the color of the warning message that this field is required in frontend -->
+          <br>
+      {% endfor %}
+      
+     {% if forms.non_field_errors %}
+      {% for error in forms.non_field_errors %}
+      <p class="alert alert-danger">{{error}}</p>    
+      {% endfor %}
+     {% endif %}
+     <input type="submit" class="btn btn-primary mt-3" value="Submit">
+    </form>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

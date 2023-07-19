@@ -1,0 +1,45 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3 class="text-center">Login</h3>
+   <hr>
+   <form action="" method="post" novalidate class="shadow p-5">
+      {% csrf_token %}
+      
+      {% if messages %}
+      {% for message in messages %}
+      <p {% if message.tags %} class="text-center text-{{message.tags}} fw-bold mb-2"{% endif %}>
+         <small>{{message}}</small> 
+      </p>
+      {% endfor %}
+       {% endif %}
+
+
+      {% for fm in form  %}
+      {{fm.label_tag}}
+      {{fm}}
+     <small class="text-warning">{{fm.errors|striptags}}</small> 
+     <!-- to change the color of the warning message that this field is required in frontend -->
+          <br>
+      {% endfor %}
+      
+     {% if forms.non_field_errors %}
+      {% for error in forms.non_field_errors %}
+      <p class="alert alert-danger">{{error}}</p>    
+      {% endfor %}
+     {% endif %}
+
+    <small><a href="{%url 'password_reset'%}">Forgot Password ?</a></small> <br>
+    <input type="submit" class="btn btn-primary mt-4" value="Login">
+    <br>
+    <div class="text-center text-primary fw-bold"><small>New to ShoppinglyX ? <a href="{% url 'customerregistration' %}"
+       class="text-danger">Create an Account</a> </small></div>
+   </form>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
