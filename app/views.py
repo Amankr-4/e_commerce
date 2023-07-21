@@ -24,9 +24,7 @@ class productdetails(View):
     def get(self,request,pk):
         Product = product.objects.get(pk = pk)
         if request.user.is_authenticated:
-            item_already_exist_in_cart = False
-            item_already_exist_in_cart = cart.objects.get(Q(product = Product.id)&Q(user=request.user)).exists()
-            return render(request,'app/productdetail.html',{'product':Product,'item_already_exist_in_cart':item_already_exist_in_cart})
+            return render(request,'app/productdetail.html',{'product':Product})
         return redirect('/accounts/login')
 
 # to add products in cart model
