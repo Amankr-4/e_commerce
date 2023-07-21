@@ -8,7 +8,7 @@ from .forms import LoginForm , password_change , password_reset_form ,password_c
 urlpatterns = [
     # path('', views.home),
     
-    path('home/',views.productview.as_view(),name= 'home'),
+    path('',views.productview.as_view(),name= 'home'),
     path('product-detail/<int:pk>', views.productdetails.as_view(), name='product-detail'),
     path('add-to-cart/', views.add_to_cart, name='add-to-cart'),
     path('cart/', views.show_cart, name='show-cart'),
